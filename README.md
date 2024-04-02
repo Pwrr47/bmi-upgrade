@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMI Calculator</title>
+<style>
+    /* Your CSS styles here */
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>BMI Calculator</h1>
+    <form id="bmiForm">
+        <label for="height">Height (cm):</label>
+        <input type="number" id="height" name="height" required>
+
+        <label for="weight">Weight (kg):</label>
+        <input type="number" id="weight" name="weight" required>
+
+        <input type="submit" value="Calculate">
+    </form>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    document.getElementById('bmiForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        var height = parseFloat(document.getElementById('height').value);
+        var weight = parseFloat(document.getElementById('weight').value);
+
+        var bmi = calculateBMI(height, weight);
+        displayResult(bmi);
+    });
+
+    function calculateBMI(height, weight) {
+        var heightInMeters = height / 100; // convert cm to meters
+        return weight / (heightInMeters * heightInMeters);
+    }
+
+    function displayResult(bmi) {
+        var resultDiv = document.getElementById('result');
+        var resultText = '';
+
+        if (bmi < 18.5) {
+            resultText = "Your BMI is: " + bmi.toFixed(2) + " - Underweight. You may be at risk for health problems associated with being underweight.";
+        } else if (bmi >= 18.5 && bmi < 25) {
+            resultText = "Your BMI is: " + bmi.toFixed(2) + " - Normal weight. Keep up the good work!";
+        } else if (bmi >= 25 && bmi < 30) {
+            resultText = "Your BMI is: " + bmi.toFixed(2) + " - Overweight. You may be at risk for health problems associated with being overweight.";
+        } else {
+            resultText = "Your BMI is: " + bmi.toFixed(2) + " - Fat. You may be at risk for health problems associated with obesity. Consider consulting a healthcare provider.";
+        }
+
+        resultDiv.innerHTML = "<h2>" + resultText + "</h2>";
+    }
+</script>
+
+</body>
+</html>
+
